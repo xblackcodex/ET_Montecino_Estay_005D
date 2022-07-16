@@ -1,0 +1,11 @@
+CREDENCIALES
+----------------
+USER:admin
+PASS:marcelo12345
+----------------
+USER:admin2
+PASS:mati123
+----------------
+CREDENCIAL CLIENTE
+USER:pedrozapata2022	
+PASS:mchelo20

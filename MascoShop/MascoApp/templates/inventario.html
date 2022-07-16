@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="{% static '/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet"> 
+    <link href="{% static '/css/estilo.css' %}" type="text/css" rel="stylesheet">
+    <script src="js/popper.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+
+    <title>Carrito Compras en JavaScript y LocalStorage</title>
+</head>
+
+<body>
+    {% load static %}
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light " style="background-color: rgb(12, 86, 88);">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones" title="Inicio">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+              
+            <!-- logo -->
+            <a class="navbar-brand" href="#">
+              <img src="{% static 'img/icono.png' %}" width="30" title="Inicio" height="30">
+            </a>
+              
+            <!-- enlaces -->
+            <div class="collapse navbar-collapse" id="opciones">   
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}" title="Principal" style="color:rgb(253, 253, 253)">Principal</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'somos' %}" title="Quienes Somos" style="color:rgb(253, 253, 253)">Quienes Somos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'galeria' %}" title="Categoria" style="color:rgb(253, 253, 253)">Catálogo</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'feriados' %}" title="Feriados" style="color:rgb(253, 253, 253)">Dias que no trabajamos</a>
+                </li>      
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'registro' %}" title="Socio" style="color:rgb(253, 253, 253)">Vuelvete socio</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'api' %}" title="Api" style="color:rgb(253, 253, 253)">Api</a>
+                </li>       
+                <img src="{% static 'img/carrito.png' %}" width="50";height="60">          
+              </ul>
+            </div>
+            <h5 style="color:rgb(255, 255, 255)">Bienvenido @{{user.username}}</h5>
+          </nav>
+          
+                                <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                                    <table id="lista-carrito" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Imagen</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                    <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                                    <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                                        Compra</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 my-4 mx-auto text-center">
+            <h1 class="display-4 mt-4"><strong>Nuestros productos destacados</strong></h1>
+            <p class="lead">Selecciona uno de nuestros productos y accede a un descuento</p>
+        </div>
+
+        <div class="container" id="lista-productos">
+            
+            <div class="card-deck mb-3 text-center">
+                
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">PURINA Felix</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% static 'img/comida1.jpg' %}" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">CLP$ <span class="">8.000 </span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Comida para gatos sabor Atún en Salsa para Gatitos Pouch 85g</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="1">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">PURINA Cat Chow</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% static 'img/comida2.jpg' %}" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">CLP$ <span class="">3.990 </span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Alimento para Gato esterilizado 1 kg</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="2">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">WHISKAS Gatitos</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% static 'img/comida3.jpg' %}" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">CLP$ <span class="">9.300 </span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Alimento para Gato sabor carne en Salsa 1 kg</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="3">Comprar</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-deck mb-3 text-center">
+                
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">PURINA Cat Chow</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% static 'img/comida4.jpg' %}" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">CLP$<span class="">7.600 </span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Alimento Cat Chow Defense Plus para Gato de temprana edad sabor mix de 8kg</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="4">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">MASTER Dog</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% static 'img/comida5.jpg' %}" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">CLP$<span class="">24.190 </span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Alimento seco para perro adulto pollo 15 kg</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="5">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">CHAMPION Dog</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% static 'img/comida6.jpg' %}" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">CLP$<span class="">9.390 </span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li> Alimento perro cachorro carne, pollo y leche 3 kg</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="6">Comprar</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </main>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/pedido.js"></script>
+
+</body>
+
+</html>

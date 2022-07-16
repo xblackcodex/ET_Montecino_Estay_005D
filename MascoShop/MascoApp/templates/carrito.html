@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="{% static '/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet"> 
+    <script src="js/popper.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+
+    <title>Carrito Compras en JavaScript</title>
+
+</head>
+
+<body>
+    {% load static %}
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light " style="background-color: rgb(12, 86, 88);">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones" title="Inicio">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+              
+            <!-- logo -->
+            <a class="navbar-brand" href="#">
+              <img src="{% static 'img/icono.png' %}" width="30" title="Inicio" height="30">
+            </a>
+              
+            <!-- enlaces -->
+            <div class="collapse navbar-collapse" id="opciones">   
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}" title="Principal" style="color:rgb(253, 253, 253)">Principal</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'somos' %}" title="Quienes Somos" style="color:rgb(253, 253, 253)">Quienes Somos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'galeria' %}" title="Categoria" style="color:rgb(253, 253, 253)">Catálogo</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'feriados' %}" title="Feriados" style="color:rgb(253, 253, 253)">Dias que no trabajamos</a>
+                </li>      
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'registro' %}" title="Socio" style="color:rgb(253, 253, 253)">Vuelvete socio</a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'api' %}" title="Api" style="color:rgb(253, 253, 253)">Api</a>
+                </li>       
+                <img src="{% static 'img/carrito.png' %}" width="50";height="60">          
+              </ul>
+            </div>
+            <h5 style="color:rgb(255, 255, 255)">Bienvenido @{{user.username}}</h5>
+          </nav>
+          <div style="margin-left: 10%; margin-right: 10%; margin-top: 5% ;">
+            <div>
+                <div>
+                    <h2 class="d-flex justify-content-center mb-3">Realizar Compra</h2>
+                    <form id="procesar-pago">
+                        <div class="form-group row">
+                            <label for="cliente" class="col-12 col-md-2 col-form-label h2">Cliente :</label>
+                            <div class="col-12 col-md-10">
+                                <input type="text" class="form-control" id="cliente"
+                                    placeholder="Ingresa nombre cliente" name="destinatario">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-12 col-md-2 col-form-label h2">Correo :</label>
+                            <div class="col-12 col-md-10">
+                                <input type="text" class="form-control" id="correo" placeholder="Ingresa tu correo" name="cc_to">
+                            </div>
+                        </div>
+
+                        <div id="carrito" class="form-group table-responsive" >
+                            <table class="form-group table" id="lista-compra" >
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Imagen</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Sub Total</th>
+                                        <th scope="col">Eliminar</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody >
+
+                                </tbody>
+                                <tr>
+                                    <th colspan="4" scope="col" class="text-right">SUB TOTAL :</th>
+                                    <th scope="col">
+                                        <p id="subtotal"></p>
+                                    </th>
+                                    <!-- <th scope="col"></th> -->
+                                </tr>
+                                <tr>
+                                    <th colspan="4" scope="col" class="text-right">IGV :</th>
+                                    <th scope="col">
+                                        <p id="igv"></p>
+                                    </th>
+                                    <!-- <th scope="col"></th> -->
+                                </tr>
+                                <tr>
+                                    <th colspan="4" scope="col" class="text-right">TOTAL :</th>
+                                    <th scope="col">
+                                        <input id="total" name="monto" class="font-weight-bold border-0" readonly style="background-color: white;"></input>
+                                    </th>
+                                    <!-- <th scope="col"></th> -->
+                                </tr>
+
+                            </table>
+                        </div>
+
+                        <div class="row justify-content-between">
+                            <div class="col-md-4 mb-2">
+                                <a href="index.html" class="btn btn-info btn-block">Seguir comprando</a>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="submit" class="btn btn-success btn-block" id="procesar-compra" value="Realizar compra">
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </main>
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>
